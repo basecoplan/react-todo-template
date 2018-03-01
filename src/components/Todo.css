@@ -1,0 +1,7 @@
+.Todo-done {
+  background-color: green;
+}
+
+.Todo-undone {
+  background-color: red;
+}
