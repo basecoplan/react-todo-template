@@ -10,21 +10,45 @@ const todos = [
 ];
 
 class TodoList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { newTodo: '', todos }
+    this.onChange = this.onChange.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+  }
+
   render() {
-    // const list = todos.map(t => <Todo text={t.text} done={t.done} key={t.id}/>);
-    var list = [];
-    for(var i = 0; i < todos.length; ++i) {
-      var t = todos[i];
-      var component = <Todo text={t.text} done={t.done} key={t.id}/>;
-      list.push(component);
-    }
-    
-    
+    const list = this.state.todos.map(t => <Todo text={t.text} done={t.done} key={t.id}/>);
     return (
       <section>
-        {list}
+        <section>
+          <input type='text' value={this.state.newTodo} onChange={this.onChange}/>
+          <button onClick={this.onAdd}>Add</button>
+        </section>
+        <section>
+          {list}
+        </section>
       </section>
     );
+  }
+
+  onChange(event) {
+    this.setState({newTodo: event.target.value});
+  }
+
+  onAdd() {
+    this.setState({newTodo: ''});
+    const todoObject = {
+      id: todos.length + 1,
+      text: this.state.newTodo,
+      done: false
+    };
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        todoObject
+      ]
+    })
   }
 }
 
