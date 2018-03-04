@@ -2,11 +2,11 @@ import React, {Component } from 'react';
 import Todo from './Todo';
 
 const todos = [
-  { id: 1, text: 'Купить хлеба', done: false },
-  { id: 2, text: 'Купить молока', done: true },
-  { id: 3, text: 'Отдать зачетку', done: false },
-  { id: 4, text: 'Прыгнуть с парашютом', done: false },
-  { id: 5, text: 'Закрыть счет в банке', done: true }
+  { id: 1, text: 'Купить хлеба' },
+  { id: 2, text: 'Купить молока' },
+  { id: 3, text: 'Отдать зачетку' },
+  { id: 4, text: 'Прыгнуть с парашютом' },
+  { id: 5, text: 'Закрыть счет в банке' }
 ];
 
 class TodoList extends Component {
@@ -15,10 +15,11 @@ class TodoList extends Component {
     this.state = { newTodo: '', todos }
     this.onChange = this.onChange.bind(this);
     this.onAdd = this.onAdd.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   render() {
-    const list = this.state.todos.map(t => <Todo text={t.text} done={t.done} key={t.id}/>);
+    const list = this.state.todos.map(t => <Todo todo={t} key={t.id} delete={this.onDelete}/>);
     return (
       <section>
         <section>
@@ -39,9 +40,8 @@ class TodoList extends Component {
   onAdd() {
     this.setState({newTodo: ''});
     const todoObject = {
-      id: todos.length + 1,
-      text: this.state.newTodo,
-      done: false
+      id: this.state.todos.length + 1,
+      text: this.state.newTodo
     };
     this.setState({
       todos: [
@@ -49,6 +49,13 @@ class TodoList extends Component {
         todoObject
       ]
     })
+  }
+
+  onDelete(id) {
+    const index = this.state.todos.findIndex(t => t.id === id);
+    const copy = [...this.state.todos];
+    copy.splice(index, 1);
+    this.setState({todos: copy});
   }
 }
 

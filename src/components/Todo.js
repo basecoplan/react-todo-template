@@ -7,10 +7,10 @@ class Todo extends Component {
     super(props);
 
     this.state = {
-      isDone: props.done
+      isDone: false
     }
 
-    this.handleClick = this.handleClick.bind(this);
+    this.done = this.done.bind(this);
 
     this.style = {
       fontSize: '24px'
@@ -22,14 +22,17 @@ class Todo extends Component {
       ? <span>Сделано</span>
       : <span>Не сделано</span>;
     return (
-      <section className={this.state.isDone ? 'Todo-done':'Todo-undone'} onClick={this.handleClick}>
-        <p style={this.style}>{this.props.text}</p>
-        {taskString}
+      <section className={this.state.isDone ? 'Todo-done':'Todo-undone'} onClick={this.done}>
+        <p style={this.style}>{this.props.todo.text}</p>
+        <section>
+          {taskString}
+        </section>
+        <button onClick={() => this.props.delete(this.props.todo.id)}>Delete</button>
       </section>
     );
   }
 
-  handleClick() {
+  done() {
     this.setState({isDone: !this.state.isDone})
   }
 }
