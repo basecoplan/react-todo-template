@@ -1,5 +1,6 @@
 import React, {Component } from 'react';
 import Todo from './Todo';
+import TodoService from '../service/todo.service';
 
 const todos = [
   { id: 1, text: 'Купить хлеба' },
@@ -19,7 +20,13 @@ class TodoList extends Component {
     this.onChangeTodo = this.onChangeTodo.bind(this);
   }
 
+  componentWillMount() {
+    TodoService.loadTodo()
+      .then(ts => this.setState({todos: ts}));
+  }
+
   render() {
+    // return (<div>Test</div>);
     const list = this.state.todos.map(t => <Todo todo={t} key={t.id} delete={this.onDelete}/>);
     return (
       <section>
