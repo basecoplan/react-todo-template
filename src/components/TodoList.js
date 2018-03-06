@@ -16,6 +16,7 @@ class TodoList extends Component {
     this.onChange = this.onChange.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onChangeTodo = this.onChangeTodo.bind(this);
   }
 
   render() {
@@ -25,6 +26,7 @@ class TodoList extends Component {
         <section>
           <input type='text' value={this.state.newTodo} onChange={this.onChange}/>
           <button onClick={this.onAdd}>Add</button>
+          <button onClick={this.onChangeTodo}>Change first</button>
         </section>
         <section>
           {list}
@@ -49,6 +51,14 @@ class TodoList extends Component {
         todoObject
       ]
     })
+  }
+
+  onChangeTodo() {
+    const todo = this.state.todos[0];
+    todo.text = "changed";
+    this.setState({
+      todos: [...this.state.todos]
+    });
   }
 
   onDelete(id) {

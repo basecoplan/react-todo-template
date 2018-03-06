@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './Todo.css';
 
-class Todo extends Component {
+class Todo extends PureComponent {
 
   constructor(props) {
     super(props);
